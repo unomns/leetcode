@@ -49,7 +49,8 @@ func main() {
 								Val: 6, Next: nil}}}}}}}
 
 	fmt.Println("before: ", n)
-	deleteMiddle(n)
+	// deleteMiddle(n)
+	deleteMiddleFast(n)
 	fmt.Println("after: ", n)
 
 	n = &ListNode{
@@ -60,7 +61,8 @@ func main() {
 
 	fmt.Println()
 	fmt.Println("before: ", n)
-	deleteMiddle(n)
+	// deleteMiddle(n)
+	deleteMiddleFast(n)
 	fmt.Println("after: ", n)
 
 	n = &ListNode{
@@ -69,7 +71,8 @@ func main() {
 
 	fmt.Println()
 	fmt.Println("before: ", n)
-	deleteMiddle(n)
+	// deleteMiddle(n)
+	deleteMiddleFast(n)
 	fmt.Println("after: ", n)
 }
 
@@ -108,6 +111,24 @@ func deleteMiddle(head *ListNode) *ListNode {
 		cur = cur.Next
 	}
 	cur.Next = cur.Next.Next
+
+	return head
+}
+
+// use fast and lazy pointers
+func deleteMiddleFast(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return nil
+	}
+
+	slow := head
+	fast := slow.Next.Next
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+
+	slow.Next = slow.Next.Next
 
 	return head
 }
