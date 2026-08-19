@@ -1,3 +1,3 @@
 .vscode/
-socket_proj/
+.DS_Store
 go.mod
