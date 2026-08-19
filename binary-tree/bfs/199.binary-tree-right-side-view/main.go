@@ -60,6 +60,7 @@ func main() {
 			   output: 1, 3, 4
 	*/
 	fmt.Println(rightSideView(tree))
+	fmt.Println(rightSideViewRecursive(tree))
 }
 
 func rightSideView(root *TreeNode) []int {
@@ -88,6 +89,32 @@ func rightSideView(root *TreeNode) []int {
 			}
 		}
 	}
+
+	return nums
+}
+
+func rightSideViewRecursive(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+
+	nums := []int{}
+	var bfs func(node *TreeNode, d int)
+
+	bfs = func(node *TreeNode, d int) {
+		if node == nil {
+			return
+		}
+
+		if d == len(nums) {
+			nums = append(nums, node.Val)
+		}
+
+		bfs(node.Right, d+1)
+		bfs(node.Left, d+1)
+	}
+
+	bfs(root, 0)
 
 	return nums
 }
