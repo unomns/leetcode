@@ -99,9 +99,9 @@ func rightSideViewRecursive(root *TreeNode) []int {
 	}
 
 	nums := []int{}
-	var bfs func(node *TreeNode, d int)
+	var dfs func(node *TreeNode, d int)
 
-	bfs = func(node *TreeNode, d int) {
+	dfs = func(node *TreeNode, d int) {
 		if node == nil {
 			return
 		}
@@ -110,11 +110,11 @@ func rightSideViewRecursive(root *TreeNode) []int {
 			nums = append(nums, node.Val)
 		}
 
-		bfs(node.Right, d+1)
-		bfs(node.Left, d+1)
+		dfs(node.Right, d+1)
+		dfs(node.Left, d+1)
 	}
 
-	bfs(root, 0)
+	dfs(root, 0)
 
 	return nums
 }
