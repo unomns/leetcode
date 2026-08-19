@@ -36,42 +36,28 @@ type TreeNode struct {
 
 func main() {
 	tree := &TreeNode{
-		Val: 10,
+		Val: 1,
 		Left: &TreeNode{
-			Val: 5,
-			Left: &TreeNode{
-				Val: 3,
-				Left: &TreeNode{
-					Val: 3,
-				},
-				Right: &TreeNode{
-					Val: -2,
-				},
-			},
+			Val: 2,
 			Right: &TreeNode{
-				Val: 2,
-				Right: &TreeNode{
-					Val: 1,
-				},
+				Val: 5,
 			},
 		},
 		Right: &TreeNode{
-			Val: -3,
+			Val: 3,
 			Right: &TreeNode{
-				Val: 11,
+				Val: 4,
 			},
 		},
 	}
 	/*
-				   10
-				/      \
-			   5       -3
-			  /  \     /
-		     3    2   11
-		    / \    \
-		   3  -2    1
+			  1
+			/   \
+		   2     3
+			\     \
+			 5     4
 
-		   output: 10, -3, 11, 1
+			   output: 1, 3, 4
 	*/
 	fmt.Println(rightSideView(tree))
 }
