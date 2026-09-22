@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 /**
 Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
@@ -31,6 +34,10 @@ Follow up:
 func main() {
 	fmt.Println(isSubsequence("abc", "ahbgdc")) // true
 	fmt.Println(isSubsequence("axc", "ahbgdc")) // false
+
+	f := newFollowUp("ahbgdc")
+	fmt.Println(f.isSubsequence("abc")) // true
+	fmt.Println(f.isSubsequence("axc")) // false
 }
 
 func isSubsequence(s string, t string) bool {
@@ -48,4 +55,42 @@ func isSubsequence(s string, t string) bool {
 	}
 
 	return false
+}
+
+type followUp struct {
+	pos [26][]int
+}
+
+func newFollowUp(t string) followUp {
+	pos := [26][]int{}
+	for i := range t {
+		idx := t[i] - 'a'
+		pos[idx] = append(pos[idx], i)
+	}
+	return followUp{pos}
+}
+
+func (f followUp) isSubsequence(s string) bool {
+	prev := -1
+
+	for i := range s {
+		idx := s[i] - 'a'
+
+		indices := f.pos[idx]
+		if len(indices) == 0 {
+			return false
+		}
+
+		iPos := sort.Search(len(indices), func(j int) bool {
+			return indices[j] > prev
+		})
+
+		if iPos == len(indices) {
+			return false
+		}
+
+		prev = indices[iPos]
+	}
+
+	return true
 }
