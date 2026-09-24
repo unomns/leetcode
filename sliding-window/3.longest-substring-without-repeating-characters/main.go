@@ -34,32 +34,20 @@ func main() {
 }
 
 func lengthOfLongestSubstring(s string) int {
-	if len(s) <= 1 {
-		return len(s)
-	}
+	set := [256]int{}
+	max, left := 0, 0
 
-	max, left, right := 0, 0, 1
+	for right := 0; right < len(s); right++ {
+		ch := s[right]
 
-	set := [256]bool{}
-	set[s[left]] = true
-
-	for left < right && right < len(s) {
-		if set[s[right]] {
-			if right-left > max {
-				max = right - left
-			}
-			for left < right && s[left] != s[right] {
-				set[s[right]] = false
-				left++
-			}
-			set[s[right]] = false
-			left++
+		if set[ch] > left {
+			left = set[ch]
 		}
 
-		set[s[right]] = true
-		right++
-		if right-left > max {
-			max = right - left
+		set[ch] = right + 1
+
+		if right-left+1 > max {
+			max = right - left + 1
 		}
 	}
 
